@@ -3,7 +3,7 @@ class Board {
 	private int height;
 	private byte[][] array; //black 1, white -1
 	private boolean player; //black true, white false
-	private byte turn; //necessary? int?
+	private int turn; //necessary? int?
 
 	public Board() {
 		this(8,8);
@@ -19,6 +19,22 @@ class Board {
 				array[i][j] = 0;
 			}
 		}
+	}
+
+	public byte get(int x, int y) {
+		return array[x][y];
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public boolean getPlayer() {
+		return player;
 	}
 
 	public void place(int x, int y) {
