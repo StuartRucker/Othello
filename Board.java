@@ -19,6 +19,10 @@ class Board {
 				array[i][j] = 0;
 			}
 		}
+		place(4,3);
+		place(3,3);
+		place(3,4);
+		place(4,4);
 	}
 
 	public byte get(int x, int y) {
