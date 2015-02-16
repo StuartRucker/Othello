@@ -3,7 +3,7 @@ class Board {
 	private int height;
 	private byte[][] array; //black 1, white -1
 	private boolean player; //black true, white false
-	private int turn; //necessary? int?
+	//private int turn; //necessary? int?
 
 	public Board() {
 		this(8,8);
@@ -26,7 +26,11 @@ class Board {
 	}
 
 	public byte get(int x, int y) {
-		return array[x][y];
+		if (x >= 0 && x < width && y >= 0 && y < height) {
+			return array[x][y];
+		} else {
+			return Byte.MAX_VALUE;
+		}
 	}
 
 	public int getWidth() {
@@ -43,6 +47,7 @@ class Board {
 
 	public void place(int x, int y) {
 		if (x == -1 && y == -1) {
+			//unable to place
 			player = !player;
 			return;
 		}
@@ -51,6 +56,11 @@ class Board {
 		} else if (!player) {
 			array[x][y] = -1;
 		}
+		player = !player;
+	}
+
+	public void revert(int x, int y) {
+		array[x][y] = 0;
 		player = !player;
 	}
 

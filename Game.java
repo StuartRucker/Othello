@@ -13,9 +13,15 @@ class Game {
 		//ai = new AI();
 	}
 
-	public void play(int i, int j) {
+	public boolean play(int i, int j) {
 		b.place(i,j);
-		e.capture(b,i,j);
+		if (e.capture(b,i,j)) {
+			return true;
+		} else {
+			System.out.println("Illegal Move");
+			b.revert(i,j);
+			return false;
+		}
 	}
 
 	public void print() {
