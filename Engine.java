@@ -6,21 +6,32 @@ class Engine {
 
 	public void capture(Board b, int i, int j) {
 		//Span outwards from point
-		int x = i;
-		int y = j;
-		byte p1 = b.get(i,j);
-		byte p2 = (byte) (-p1);
+		byte p2 = (byte) (-b.get(i,j));
+		moveFlip(b,i,j, 1, 0,p2);
+		moveFlip(b,i,j,-1, 0,p2);
+		moveFlip(b,i,j, 0, 1,p2);
+		moveFlip(b,i,j, 0,-1,p2);
+		moveFlip(b,i,j, 1, 1,p2);
+		moveFlip(b,i,j, 1,-1,p2);
+		moveFlip(b,i,j,-1, 1,p2);
+		moveFlip(b,i,j,-1,-1,p2);
+	}
+
+	private void moveFlip(Board b, int x1, int y1, int i, int j, byte p2) {
+		int x = x1;
+		int y = y1;
 		do {
-			x++;
-			y++;
-		} while (b.get(x,y) == (byte)(p2);
-		x--;
-		y--;
-		while (b.get(x,y) == (byte)(p2) {
-			//b.flip(--x,--y);
-			x--;
-			y--;
-			b.flip(x,y);
+			x+=i;
+			y+=j;
+		} while (b.get(x,y) == (byte)(p2));
+		if (b.get(x,y) == (byte)(-p2)) {
+			x-=i;
+			y-=j;
+			while (b.get(x,y) == (byte)(p2)) {
+				b.flip(x,y);
+				x-=i;
+				y-=j;
+			}
 		}
 	}
 }
