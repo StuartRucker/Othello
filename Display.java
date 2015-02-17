@@ -10,12 +10,15 @@ import javax.swing.JPanel;
 public class Display extends JPanel implements MouseListener{
 	int width, height;
 	int squareWidth, squareHeight;
-	int[][] board;
+	//int[][] board;
+	Game game;
 	int turn = 0;
 	public Display() {
 		addMouseListener(this);
 		setBackground(new Color(65,140,35));
-		board = new int[8][8];
+		//board = new int[8][8];
+		game = new Game();
+
 	}
 	public void size(int x, int y){
 		this.setPreferredSize(new Dimension(x,y));
@@ -37,11 +40,11 @@ public class Display extends JPanel implements MouseListener{
 		for(int x = 0; x < 8; x ++){
 			for(int y = 0; y < 8; y ++){
 				//piece is white
-				if(board[x][y] == 1){
+				if(game.get(x,y) == 1){
 					g.setColor(new Color(242,235,201));
 					g.fillOval(x * squareHeight + 4, y* squareWidth + 4, squareWidth - 4, squareHeight - 4);
 				}
-				else if(board[x][y] == 2){
+				else if(game.get(x,y) == 2){
 					g.setColor(Color.BLACK);
 					g.fillOval(x * squareHeight + 4, y* squareWidth + 4, squareWidth - 4, squareHeight - 4);
 				}
@@ -66,16 +69,9 @@ public class Display extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		turn++;
 		int x = (e.getX())/squareWidth;
 		int y = (e.getY())/squareHeight;
-		
-		if(isValidMove(x,y)){
-			board[x][y] = 1;
-			//play CPU 
-			int[] CPU = CPUDecideMove();
-			board[CPU[0]][CPU[1]] = 2;
-		}
+		game.play(x,y);
 		
 		paintComponent(getGraphics());
 		

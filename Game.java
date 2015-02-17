@@ -13,6 +13,10 @@ class Game {
 		//ai = new AI();
 	}
 
+	public byte get(int i, int j) {
+		return b.get(i,j);
+	}
+
 	public boolean play(int i, int j) {
 		b.place(i,j);
 		if (e.capture(b,i,j)) {
