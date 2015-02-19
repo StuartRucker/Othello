@@ -4,43 +4,55 @@ class Engine {
 
 	}
 
-	public boolean capture(Board b, int i, int j) {
+	public boolean capture(Board r, int x, int y, byte color) {
 		//Span outwards from point
-		boolean m1 = moveFlip(b,i,j, 1, 0);
-		boolean m2 = moveFlip(b,i,j,-1, 0);
-		boolean m3 = moveFlip(b,i,j, 0, 1);
-		boolean m4 = moveFlip(b,i,j, 0,-1);
-		boolean m5 = moveFlip(b,i,j, 1, 1);
-		boolean m6 = moveFlip(b,i,j, 1,-1);
-		boolean m7 = moveFlip(b,i,j,-1, 1);
-		boolean m8 = moveFlip(b,i,j,-1,-1);
-		return m1 || m2 || m3 || m4 || m5 || m6 || m7 || m8;
-	}
-
-	private boolean moveFlip(Board b, int x1, int y1, int i, int j) {
-		//Problems when placing right next to same color
-		//Need to implement border check
-		int x = x1;
-		int y = y1;
-		byte p1 = b.get(x1,y1);
-		byte p2 = (byte) (-p1);
-		int c = 0;
-		do {
-			x+=i;
-			y+=j;
-			c++;
-		} while (b.get(x,y) == p2 && c > 1);
-		if (b.get(x,y) == p1) {
-			x-=i;
-			y-=j;
-			while (b.get(x,y) == p2) {
-				b.flip(x,y);
-				x-=i;
-				y-=j;
-			}
+	
+		
+		System.out.println("\n\nchecking down left");
+		boolean S = moveFlip(r,color,x,y,1,1);
+		boolean T = moveFlip(r,color,x,y,0,1);
+		boolean U = moveFlip(r,color,x,y,-1,1);
+		boolean A = moveFlip(r,color,x,y,1,0);
+		boolean R = moveFlip(r,color,x,y,-1,0);
+		boolean P = moveFlip(r,color,x,y,1,-1);
+		boolean Q = moveFlip(r,color,x,y,0,-1);
+		boolean M = moveFlip(r,color,x,y,-1,-1);
+		if(S||T||U||A||R||P||Q||M){
 			return true;
-		} else {
+		}
+		else{
 			return false;
 		}
+	}
+
+	private boolean moveFlip(Board r,byte color, int x, int y, int i, int j) {
+		//go forward
+		int checkX = x + i;
+		int checkY = y + j;
+		int passed = 0;
+		while(r.get(checkX,checkY) == -color){
+			System.out.println("in while loop: "+ (checkX+1) + " "+ (checkY+1));
+			passed ++;
+			checkX += i;
+			checkY += j;
+		}
+		//checkX += i;
+		//checkX += j;
+		System.out.println("passed: " + passed + ", color " +r.get(checkX,checkY));
+		if(passed> 0 && r.get(checkX,checkY) == color){
+			while(checkX != x || checkY != y){
+				r.set(checkX,checkY,color);
+				
+				checkX -= i;
+				checkY -= j;
+			}
+			r.set(x,y,color);
+			return true;
+		
+		}
+		else{//no move found;
+			return false;
+		}
+		
 	}
 }
