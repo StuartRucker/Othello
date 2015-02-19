@@ -39,11 +39,11 @@ public class Display extends JPanel implements MouseListener{
             for(int y = 0; y < 8; y ++){
                 //piece is white
                 
-            	if(g.getBoard().get(x, y) == 1){
+            	if(g.getBoard().get(x, y) == -1){
                     graph.setColor(new Color(242,235,201));
                     graph.fillOval(x * squareHeight + 4, y* squareWidth + 4, squareWidth - 4, squareHeight - 4);
                 }
-                else if(g.getBoard().get(x, y) == -1){
+                else if(g.getBoard().get(x, y) == 1){
                     graph.setColor(Color.BLACK);
                     graph.fillOval(x * squareHeight + 4, y* squareWidth + 4, squareWidth - 4, squareHeight - 4);
                 }
@@ -53,13 +53,7 @@ public class Display extends JPanel implements MouseListener{
         
     }
    
-    public int[] CPUDecideMove(){
-        //TODO
-        //return the coordinates that the cpu would like to make
-        //This is the gut!
-        Random gen = new Random();
-        return new int[]{gen.nextInt(7),gen.nextInt(7)};
-    }
+
 
 
     @Override
@@ -68,14 +62,14 @@ public class Display extends JPanel implements MouseListener{
         int x = (e.getX())/squareWidth;
         int y = (e.getY())/squareHeight;
         
-        if(g.isValidMove(x,y)){
-            g.play(x,y);
-            //play CPU 
-            int[] CPU = CPUDecideMove();
-            g.play(CPU[0],CPU[1]);
-        }
+
+         if(g.play(x,y)){ 
+        	 paintComponent(getGraphics());
+        	 g.CPUPLay();
+        	 paintComponent(getGraphics());
+         }
         
-        paintComponent(getGraphics());
+       
         
     }
     @Override
@@ -102,4 +96,3 @@ public class Display extends JPanel implements MouseListener{
 
 
 }
-
