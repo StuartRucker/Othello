@@ -51,12 +51,16 @@ class Board {
 			player = !player;
 			return;
 		}
-		if (player) {
-			array[x][y] = 1;
-		} else if (!player) {
-			array[x][y] = -1;
+		if (array[x][y] == 0) {
+			if (player) {
+				array[x][y] = 1;
+			} else if (!player) {
+				array[x][y] = -1;
+			}
+			player = !player;
+		} else {
+			player = !player;
 		}
-		player = !player;
 	}
 
 	public void revert(int x, int y) {

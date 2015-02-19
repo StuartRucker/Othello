@@ -15,14 +15,14 @@ class Game {
 
     public boolean play(int i, int j) {
         b.place(i,j);
-        /*if (e.capture(b,i,j)) {
+        if (e.capture(b,i,j)) {
             return true;
         } else {
             System.out.println("Illegal Move");
             b.revert(i,j);
             return false;
-        }*/
-        return true;
+        }
+        //return true;
     }
 
     public void print() {
