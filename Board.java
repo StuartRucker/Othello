@@ -72,6 +72,20 @@ class Board {
 		array[x][y] = (byte) -array[x][y];
 	}
 
+	public void set(int x, int y, byte b){
+		array[x][y] = b;
+	}
+
+	public Board copy(){
+		Board s = new Board(width,height);
+		for(int x = 0; x < width; x ++){
+			for(int y = 0; y < height; y ++){
+				s.set(x, y, array[x][y]);
+			}
+		}
+		return s;
+	}
+
 	public String toString() {
 		String rtn = "";
 		for (int j = 0; j < height; j++) {
