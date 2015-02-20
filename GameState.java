@@ -41,15 +41,7 @@ public class GameState {
 	// board configuration after playing a tile on board c, at position x, y
 	public Board getNextBoard(byte color, int x, int y, Board c) {
 		Board r = c.copy();
-		boolean S = moveFlip(r, color, x, y, 1, 1);
-		boolean T = moveFlip(r, color, x, y, 0, 1);
-		boolean U = moveFlip(r, color, x, y, -1, 1);
-		boolean A = moveFlip(r, color, x, y, 1, 0);
-		boolean R = moveFlip(r, color, x, y, -1, 0);
-		boolean P = moveFlip(r, color, x, y, 1, -1);
-		boolean Q = moveFlip(r, color, x, y, 0, -1);
-		boolean M = moveFlip(r, color, x, y, -1, -1);
-		if (S || T || U || A || R || P || Q || M) {
+		if (e.capture(r, x, y, c)) {
 			return r;
 		} else {
 			return null;
