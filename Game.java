@@ -20,7 +20,7 @@ class Game {
 	            return false;
 	        }
 	     }
-	     else{
+	     else {
 	    	 return false;
 	     }
         //return true;

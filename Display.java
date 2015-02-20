@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 public class Display extends JPanel implements MouseListener{
     int width, height;
     int squareWidth, squareHeight;
-    int turn = 0;
     Game g;
     public Display() {
         addMouseListener(this);
@@ -58,7 +57,6 @@ public class Display extends JPanel implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        turn++;
         int x = (e.getX())/squareWidth;
         int y = (e.getY())/squareHeight;
         

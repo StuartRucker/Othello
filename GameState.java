@@ -5,13 +5,11 @@ import java.util.LinkedList;
 
 public class GameState {
 	Board b;
-	byte color;
 	LinkedList<GameState> children;
 
-	public GameState(Board newB, byte col) {
+	public GameState(Board newB) {
 		children = new LinkedList<GameState>(30);
 		b = newB;
-		color = col;
 	}
 
 	public LinkedList<GameState> findAllChildren() {
@@ -19,9 +17,9 @@ public class GameState {
 		for (int X = 0; X < b.getWidth(); X++) {
 			for (int Y = 0; Y < b.getHeight(); Y++) {
 				if (b.get(X, Y) == 0) { // if an empty square
-					Board a = getNextBoard(color, X, Y, b);
+					Board a = getNextBoard(b.getPlayer(), X, Y, b);
 					if (a != null) {
-						children.add(new GameState(a, (byte) -color));
+						children.add(new GameState(a, (byte) -b.getPlayer()));
 					}
 				}
 			}
@@ -30,7 +28,7 @@ public class GameState {
 	}
 
 	public int getScore() {
-		// returns an arbitrary number denoting how good the board is
+		// returns an (arbitrary) number denoting how good the board is
 		int sum = 0;
 		for (int x = 0; x < b.getWidth(); x++) {
 			for (int y = 0; y < b.getHeight(); y++) {
@@ -56,30 +54,6 @@ public class GameState {
 		} else {
 			return null;
 		}
-	}
-
-	private boolean moveFlip(Board r, byte color, int x, int y, int i, int j) {
-		// go forward
-		int checkX = x + i;
-		int checkY = y + j;
-		int passed = 0;
-		while (r.get(checkX, checkY) == -color) {
-			passed++;
-			checkX += i;
-			checkY += j;
-		}
-		if (passed > 0 && r.get(checkX, checkY) == color) {
-			while (checkX != x && checkY != y) {
-				r.set(checkX, checkY, color);
-				checkX -= i;
-				checkY -= j;
-			}
-			return true;
-
-		} else {// no move found;
-			return false;
-		}
-
 	}
 
 	public LinkedList<GameState> getChildren() {
