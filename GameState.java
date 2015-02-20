@@ -1,20 +1,20 @@
 //does not work. Just my work so far...
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class GameState {
 	Board b;
 	byte color;
-	ArrayList<GameState> children;
+	LinkedList<GameState> children;
 
 	public GameState(Board newB, byte col) {
-		children = new ArrayList<GameState>(30);
+		children = new LinkedList<GameState>(30);
 		b = newB;
 		color = col;
 	}
 
-	public ArrayList<GameState> findAllChildren() {
+	public LinkedList<GameState> findAllChildren() {
 		// check each play location X,Y
 		for (int X = 0; X < b.getWidth(); X++) {
 			for (int Y = 0; Y < b.getHeight(); Y++) {
@@ -82,12 +82,11 @@ public class GameState {
 
 	}
 
-	public ArrayList<GameState> getChildren() {
+	public LinkedList<GameState> getChildren() {
 		return children;
 	}
 
 	public Board getBoard() {
-		// TODO Auto-generated method stub
 		return b;
 	}
 }
