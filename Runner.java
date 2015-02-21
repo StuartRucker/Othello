@@ -7,14 +7,14 @@ import javax.swing.JPanel;
 
 
 public class Runner {
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		JFrame frame = new JFrame("Slider Example");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		int WIDTH = (int) dim.getHeight() - 30;
 		int HEIGHT = (int) dim.getHeight() - 30;
-		
+
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setResizable(false);
 
@@ -22,7 +22,7 @@ public class Runner {
 		main.setLayout(new BoxLayout(main, BoxLayout.X_AXIS));
 
 		Display d = new Display();
-		d.size(WIDTH,HEIGHT);
+		d.size(WIDTH, HEIGHT);
 
 		main.add(d);
 

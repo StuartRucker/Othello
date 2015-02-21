@@ -6,7 +6,7 @@ class Board {
 	//private int turn; //necessary? int?
 
 	public Board() {
-		this(8,8);
+		this(8, 8);
 	}
 
 	public Board(int w, int h) {
@@ -19,10 +19,10 @@ class Board {
 				array[i][j] = 0;
 			}
 		}
-		place(4,3);
-		place(3,3);
-		place(3,4);
-		place(4,4);
+		place(4, 3);
+		place(3, 3);
+		place(3, 4);
+		place(4, 4);
 	}
 
 	public byte get(int x, int y) {
@@ -50,7 +50,7 @@ class Board {
 	}
 
 	public byte getPlayeri() {
-		return player ? (byte)1 : (byte)-1;
+		return player ? (byte)1 : (byte) - 1;
 	}
 
 	public void place(int x, int y) {
@@ -77,17 +77,17 @@ class Board {
 	}
 
 	public void flip(int x, int y) {
-		array[x][y] = (byte) -array[x][y];
+		array[x][y] = (byte) - array[x][y];
 	}
 
-	public void set(int x, int y, byte b){
+	public void set(int x, int y, byte b) {
 		array[x][y] = b;
 	}
 
-	public Board copy(){
-		Board s = new Board(width,height);
-		for(int x = 0; x < width; x ++){
-			for(int y = 0; y < height; y ++){
+	public Board copy() {
+		Board s = new Board(width, height);
+		for (int x = 0; x < width; x ++) {
+			for (int y = 0; y < height; y ++) {
 				s.set(x, y, array[x][y]);
 			}
 		}
@@ -111,6 +111,6 @@ class Board {
 		}
 		return rtn;
 	}
-	
+
 
 }

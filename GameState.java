@@ -23,7 +23,7 @@ public class GameState {
 				if (b.get(X, Y) == 0) { // if an empty square
 					Board a = getNextBoard(b, X, Y, color);
 					if (a != null) {
-						children.add(new GameState(a, (byte)-color));
+						children.add(new GameState(a, (byte) - color));
 					}
 				}
 			}

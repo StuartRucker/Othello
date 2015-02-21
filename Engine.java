@@ -28,7 +28,7 @@ class Engine {
 		int checkY = y + j;
 		int passed = 0;
 		while (r.get(checkX, checkY) == -color) {
-			
+
 			passed++;
 			checkX += i;
 			checkY += j;
@@ -56,9 +56,9 @@ class Engine {
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
 				if (!canPlay && b.get(x, y) == 0)
-					if (capture(b, x, y, color)){
+					if (capture(b, x, y, color)) {
 						canPlay = true;
-						System.out.println("you can play at "+ (x+1) + " "+(1+y));
+						System.out.println("you can play at " + (x + 1) + " " + (1 + y));
 					}
 			}
 		}
