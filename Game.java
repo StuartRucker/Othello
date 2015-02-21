@@ -60,6 +60,7 @@ class Game {
 			e1.printStackTrace();
 		}
 		boolean played = false;
+		CPU.update(b);
 		CPU.computeValue(CPU.getCurrent());
 		b = CPU.bestMove(CPU.getCurrent());
 		return played;

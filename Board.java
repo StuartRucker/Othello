@@ -50,7 +50,7 @@ class Board {
 	}
 
 	public byte getPlayeri() {
-		return player ? (byte)1 : (byte) - 1;
+		return player ? (byte)1 : (byte)(-1);
 	}
 
 	public void place(int x, int y) {
@@ -77,7 +77,7 @@ class Board {
 	}
 
 	public void flip(int x, int y) {
-		array[x][y] = (byte) - array[x][y];
+		array[x][y] = (byte)(-array[x][y]);
 	}
 
 	public void set(int x, int y, byte b) {
@@ -112,5 +112,12 @@ class Board {
 		return rtn;
 	}
 
+	public boolean equals(Board b) {
+		return array.equals(b.getArray());
+	}
+
+	public byte[][] getArray() {
+		return array;
+	}
 
 }

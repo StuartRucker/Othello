@@ -4,20 +4,23 @@ public class AI {
 	public AI(Board init) {
 		current = new GameState(init, (byte)1);
 		System.out.println(current.getBoard());
-		initGenerateDepth(2, current);
+		initGenerateDepth(0, 6, current);
 		computeValue(current);
 	}
 
 	//now each gamestate has pointers to all sub gamestates
-	public void initGenerateDepth(int depth, GameState root) {
-		System.out.println("generating depth =" + depth);
-		if (depth == 0) {
+	public void initGenerateDepth(int depth, int target, GameState root) {
+		//System.out.println("generating depth =" + depth);
+		if (depth == target) {
 			return;
 		}
 		for (GameState child : root.findAllChildren()) {
-			initGenerateDepth(depth - 1, child);
-			System.out.println(child.getBoard());
-			System.out.println(child.getValue());
+			initGenerateDepth(depth + 1, target, child);
+			
+			if (depth == 0) {
+				System.out.println("generating depth =" + depth);
+				System.out.println(child.getBoard());
+			}
 		}
 	}
 
@@ -37,7 +40,7 @@ public class AI {
 	public double computeValue(GameState root) {
 		if (root.getChildren().isEmpty()) {
 			root.addValue(root.getScore());
-			System.out.println("Leaf Score: " + root.getScore());
+			//System.out.println("Leaf Score: " + root.getScore());
 			return root.getScore();
 		} else {
 			int rtn = 0;
@@ -45,12 +48,13 @@ public class AI {
 				root.addValue(computeValue(s));
 			}
 			root.avg();
-			System.out.println("Internal Value: " + root.getValue());
+			//System.out.println("Internal Value: " + root.getValue());
 			return root.getValue();
 		}
 	}
 
 	public Board bestMove(GameState root) {
+		System.out.println("bestMove");
 		double m = Double.MAX_VALUE;
 		Board b = null;
 		for (GameState c : root.getChildren()) {
@@ -71,6 +75,18 @@ public class AI {
 
 	public GameState getCurrent() {
 		return current;
+	}
+
+	public void update(Board b) {
+		System.out.println("update");
+		for (GameState s : current.getChildren()) {
+			if (b.equals(s.getBoard())) {
+				current = s;
+				return;
+			}
+		}
+		System.out.println("whoops");
+		current = current.getChildren().get(0);
 	}
 
 	/*public int getLowestScore(GameState root){

@@ -23,7 +23,7 @@ public class GameState {
 				if (b.get(X, Y) == 0) { // if an empty square
 					Board a = getNextBoard(b, X, Y, color);
 					if (a != null) {
-						children.add(new GameState(a, (byte) - color));
+						children.add(new GameState(a, (byte)(-color)));
 					}
 				}
 			}
@@ -39,7 +39,6 @@ public class GameState {
 				sum += b.get(x, y);
 			}
 		}
-		System.out.println("GetScore: " + sum);
 		return sum;
 	}
 
@@ -63,7 +62,6 @@ public class GameState {
 
 	public void addValue(double v1) {
 		v += v1;
-		System.out.println("Added " + v1 + " now " + v);
 	}
 
 	public void avg() {

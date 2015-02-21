@@ -72,12 +72,12 @@ public class Display extends JPanel implements MouseListener {
         }
 
 
-        boolean c = g.canPLay((byte) - 1);
-        boolean u = g.canPLay((byte) 1);
+        boolean c = g.canPLay((byte) (-1));
+        boolean u = g.canPLay((byte) (1));
         while (!u && c) { //if only the cpu can play
             g.CPUPLay();
-            c = g.canPLay((byte) - 1);
-            u = g.canPLay((byte) 1);
+            c = g.canPLay((byte) (-1));
+            u = g.canPLay((byte) (1));
         }
         if (!u && !c) {
             gg();
@@ -86,7 +86,7 @@ public class Display extends JPanel implements MouseListener {
     public void gg() {
 
         int b = g.getScore((byte)1);
-        int w = g.getScore((byte) - 1);
+        int w = g.getScore((byte)(-1));
         String whoWins = "NULL";
         //these don't work for some reason
         if (b > w)whoWins = "you win!\n";
