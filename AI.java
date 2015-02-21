@@ -2,9 +2,8 @@
 public class AI {
 	GameState current;
 	public AI(Board init) {
-		current = new GameState(init, (byte)1);
-		System.out.println(current.getBoard());
-		initGenerateDepth(0, 6, current);
+		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
+		initGenerateDepth(0, 8, current);
 		computeValue(current);
 	}
 
@@ -16,11 +15,6 @@ public class AI {
 		}
 		for (GameState child : root.findAllChildren()) {
 			initGenerateDepth(depth + 1, target, child);
-			
-			if (depth == 0) {
-				System.out.println("generating depth =" + depth);
-				System.out.println(child.getBoard());
-			}
 		}
 	}
 
@@ -54,13 +48,13 @@ public class AI {
 	}
 
 	public Board bestMove(GameState root) {
-		System.out.println("bestMove");
 		double m = Double.MAX_VALUE;
 		Board b = null;
 		for (GameState c : root.getChildren()) {
 			if (m > c.getValue()) { //Stuart wtf > was correct
 				m = c.getValue();
 				b = c.getBoard();
+				current = c;
 			}
 		}
 		return b;
@@ -77,15 +71,14 @@ public class AI {
 		return current;
 	}
 
-	public void update(Board b) {
-		System.out.println("update");
+	public void update(Board b, byte x, byte y) {
 		for (GameState s : current.getChildren()) {
-			if (b.equals(s.getBoard())) {
+			if (s.getX() == x && s.getY() == y) { //Why no worky-worky???
 				current = s;
 				return;
 			}
 		}
-		System.out.println("whoops");
+		System.out.println("No children equal to current board position");
 		current = current.getChildren().get(0);
 	}
 

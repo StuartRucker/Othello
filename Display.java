@@ -67,7 +67,7 @@ public class Display extends JPanel implements MouseListener {
 
         if (g.play(x, y)) {
             paintComponent(getGraphics());
-            g.CPUPLay();
+            g.CPUPLay((byte)x, (byte)y);
             paintComponent(getGraphics());
         }
 
@@ -75,7 +75,7 @@ public class Display extends JPanel implements MouseListener {
         boolean c = g.canPLay((byte) (-1));
         boolean u = g.canPLay((byte) (1));
         while (!u && c) { //if only the cpu can play
-            g.CPUPLay();
+            g.CPUPLay((byte)(-1), (byte)(-1)); //broken because parameters added
             c = g.canPLay((byte) (-1));
             u = g.canPLay((byte) (1));
         }
