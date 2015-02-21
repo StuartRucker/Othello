@@ -6,10 +6,14 @@ import java.util.LinkedList;
 public class GameState {
 	Board b;
 	LinkedList<GameState> children;
+	double v;
+	byte color;
 
-	public GameState(Board newB) {
+	public GameState(Board newB, byte color1) {
 		children = new LinkedList<GameState>();
 		b = newB;
+		v = 0;
+		color = color1;
 	}
 
 	public LinkedList<GameState> findAllChildren() {
@@ -17,9 +21,9 @@ public class GameState {
 		for (int X = 0; X < b.getWidth(); X++) {
 			for (int Y = 0; Y < b.getHeight(); Y++) {
 				if (b.get(X, Y) == 0) { // if an empty square
-					Board a = getNextBoard(b.getPlayeri(), X, Y, b);
+					Board a = getNextBoard(color, X, Y, b);
 					if (a != null) {
-						children.add(new GameState(a));
+						children.add(new GameState(a, (byte)-color));
 					}
 				}
 			}
@@ -54,5 +58,17 @@ public class GameState {
 
 	public Board getBoard() {
 		return b;
+	}
+
+	public void addValue(double v1) {
+		v += v1;
+	}
+
+	public void avg() {
+		v /= children.size();
+	}
+
+	public double getValue() {
+		return v;
 	}
 }
