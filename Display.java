@@ -1,15 +1,20 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Random;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Display extends JPanel implements MouseListener{
     int width, height;
     int squareWidth, squareHeight;
+    boolean CPUhasNoMove;
     Game g;
     public Display() {
         addMouseListener(this);
@@ -57,18 +62,46 @@ public class Display extends JPanel implements MouseListener{
 
     @Override
     public void mouseReleased(MouseEvent e) {
+    	
         int x = (e.getX())/squareWidth;
-        int y = (e.getY())/squareHeight;
-        
+        int y = (e.getY())/squareHeight;   
 
-         if(g.play(x,y)){ 
-        	 paintComponent(getGraphics());
-        	 g.CPUPLay();
-        	 paintComponent(getGraphics());
-         }
         
-       
         
+ 
+        
+        if(g.play(x, y)){
+        	paintComponent(getGraphics());
+        	g.CPUPLay();
+        	paintComponent(getGraphics());
+        }
+        	
+        
+        boolean c = g.canPLay((byte)-1);
+        boolean u = g.canPLay((byte) 1);
+        while(!u && c){//of only the cpu can play
+        	g.CPUPLay();
+        	c = g.canPLay((byte)-1);
+            u = g.canPLay((byte) 1);
+        }
+        if(!u && !c){gg();}
+    }
+    public void gg(){
+    	
+    	int b = g.getScore((byte)1);
+    	int w = g.getScore((byte)-1);
+    	String whoWins = "NULL";
+    	//these don't work for some reason
+    	if(b > w)whoWins = "you win!\n";
+    	if(b<w)whoWins = "you loose!\n";
+    	if(w ==b) whoWins = "tie\n";
+    	
+    	whoWins += "you have " + b + " tiles, CPU has " + w;
+    	JOptionPane.showMessageDialog(new JFrame(), whoWins);
+    	g.endGame();
+    	g = new Game();
+    	paintComponent(getGraphics());
+    	
     }
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -85,12 +118,11 @@ public class Display extends JPanel implements MouseListener{
         // TODO Auto-generated method stub
         
     }
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        
-    }
 
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 
-
+	}
 }
+
