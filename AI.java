@@ -3,16 +3,21 @@ public class AI {
 	GameState current;
 	public AI(Board init){
 		current = new GameState(init, (byte)1); 
+		System.out.println(current.getBoard());
 		initGenerateDepth(2,current);
+		computeValue(current);
 	}
 	
 	//now each gamestate has pointers to all sub gamestates
 	public void initGenerateDepth(int depth, GameState root){
 		System.out.println("generating depth =" + depth);
-		if(depth == 0)return;
+		if (depth == 0) {
+			return;
+		}
 		for(GameState child: root.findAllChildren()){
-			System.out.println(child.getBoard());
 			initGenerateDepth(depth-1,child);
+			System.out.println(child.getBoard());
+			System.out.println(child.getValue());
 		}
 	}
 	
@@ -32,6 +37,7 @@ public class AI {
 	public double computeValue(GameState root) {
 		if (root.getChildren().isEmpty()) {
 			root.addValue(root.getScore());
+			System.out.println("Leaf Score: " + root.getScore());
 			return root.getScore();
 		} else {
 			int rtn = 0;
@@ -39,15 +45,16 @@ public class AI {
 				root.addValue(computeValue(s));
 			}
 			root.avg();
+			System.out.println("Internal Value: " + root.getValue());
+			return root.getValue();
 		}
-		return root.getValue();
 	}
 
 	public Board bestMove(GameState root) {
 		double m = Double.MAX_VALUE;
 		Board b = null;
 		for (GameState c : root.getChildren()) {
-			if (m < c.getValue()) {
+			if (m > c.getValue()) { //Stuart wtf > was correct
 				m = c.getValue();
 				b = c.getBoard();
 			}

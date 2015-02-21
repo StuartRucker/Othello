@@ -45,6 +45,10 @@ class Board {
 		return player;
 	}
 
+	public void setPlayer(boolean p) {
+		player = p;
+	}
+
 	public byte getPlayeri() {
 		return player ? (byte)1 : (byte)-1;
 	}
@@ -87,6 +91,7 @@ class Board {
 				s.set(x, y, array[x][y]);
 			}
 		}
+		s.setPlayer(getPlayer());
 		return s;
 	}
 

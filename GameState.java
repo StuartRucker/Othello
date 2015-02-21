@@ -21,7 +21,7 @@ public class GameState {
 		for (int X = 0; X < b.getWidth(); X++) {
 			for (int Y = 0; Y < b.getHeight(); Y++) {
 				if (b.get(X, Y) == 0) { // if an empty square
-					Board a = getNextBoard(color, X, Y, b);
+					Board a = getNextBoard(b, X, Y, color);
 					if (a != null) {
 						children.add(new GameState(a, (byte)-color));
 					}
@@ -39,11 +39,12 @@ public class GameState {
 				sum += b.get(x, y);
 			}
 		}
+		System.out.println("GetScore: " + sum);
 		return sum;
 	}
 
 	// board configuration after playing a tile on board c, at position x, y
-	public Board getNextBoard(byte color, int x, int y, Board c) {
+	public Board getNextBoard(Board c, int x, int y, byte color) {
 		Board r = c.copy();
 		if (Engine.capture(r, x, y, color)) {
 			return r;
@@ -62,10 +63,13 @@ public class GameState {
 
 	public void addValue(double v1) {
 		v += v1;
+		System.out.println("Added " + v1 + " now " + v);
 	}
 
 	public void avg() {
 		v /= children.size();
+		v += getScore();
+		v /= 2;
 	}
 
 	public double getValue() {

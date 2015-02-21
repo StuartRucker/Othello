@@ -93,7 +93,7 @@ public class Display extends JPanel implements MouseListener{
     	String whoWins = "NULL";
     	//these don't work for some reason
     	if(b > w)whoWins = "you win!\n";
-    	if(b<w)whoWins = "you loose!\n";
+    	if(b<w)whoWins = "you lose!\n";
     	if(w ==b) whoWins = "tie\n";
     	
     	whoWins += "you have " + b + " tiles, CPU has " + w;
