@@ -1,5 +1,6 @@
 class Game {
     private Board b;
+    private Engine e;
     private AI CPU;
 
     public Game() {
@@ -8,22 +9,25 @@ class Game {
 
     public Game(int w, int h) {
         b = new Board(w,h);
+        e = new Engine();
         CPU = new AI(b,(byte)-1);
     }
 
-    public boolean play(int i, int j) {
-	     if(b.get(i, j) == 0){ 
-    		if (Engine.capture(b,i,j,(byte)1)) {
-	        	return true;
+	public boolean play(int i, int j) {
+
+	    
+ 
+    	if(b.get(i, j) == 0){ 
+    		if (e.capture(b,i,j,(byte)1)) {
+    			return true;
 	        } else {
-	            System.out.println("Illegal Move");
 	            return false;
 	        }
 	     }
-	     else {
+	     else{
 	    	 return false;
 	     }
-        //return true;
+        
     }
 
     public void print() {
@@ -33,7 +37,7 @@ class Game {
         return b;
     }
 
-    public void CPUPLay(){
+    public boolean CPUPLay(){
     	try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
@@ -44,10 +48,35 @@ class Game {
     	for(int x = 0; x < 8; x ++){
     		for(int y = 0; y < 8; y ++){
     			if(!played && b.get(x, y) == 0)
-    				if(Engine.capture(b, x, y, (byte)-1)) played = true;
+    				if(e.capture(b, x, y, (byte)-1)) played = true;
     		}
     	}
+    	return played;
     }
+
+	public void endGame() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getScore(byte c) {
+		int score = 0;
+		for(int x = 0; x < 8; x ++){//sorry oscar, i will never make my code repurpose-able
+			for(int y = 0; y < 8; y ++){
+				if(b.get(x,y) == c){
+					score += 1;
+				}
+			}
+		}
+		return score;
+	}
+
+	public boolean canPLay(byte c) {
+		return e.canPLay(b, c);
+	}
+
+
+   
     
         
 }
