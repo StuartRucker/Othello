@@ -4,7 +4,7 @@ class Engine {
 
 	}
 
-	public boolean capture(Board r, int x, int y, byte color) {
+	public static boolean capture(Board r, int x, int y, byte color) {
 		// Span outwards from point
 
 		boolean S = moveFlip(r, color, x, y, 1, 1);
@@ -22,7 +22,7 @@ class Engine {
 		}
 	}
 
-	private boolean moveFlip(Board r, byte color, int x, int y, int i, int j) {
+	private static boolean moveFlip(Board r, byte color, int x, int y, int i, int j) {
 		// go forward
 		int checkX = x + i;
 		int checkY = y + j;
@@ -50,7 +50,7 @@ class Engine {
 
 	}
 
-	public boolean canPLay(Board r, byte color) {
+	public static boolean canPLay(Board r, byte color) {
 		Board b = r.copy();
 		boolean canPlay = false;
 		for (int x = 0; x < 8; x++) {

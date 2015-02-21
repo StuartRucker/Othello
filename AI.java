@@ -2,7 +2,7 @@
 public class AI {
 	GameState current;
 	public AI(Board init, byte color){
-		current = new GameState(init,color);
+		current = new GameState(init);
 	}
 	
 	//now each gamestate has pointers to all sub gamestates

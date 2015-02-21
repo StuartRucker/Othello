@@ -45,6 +45,10 @@ class Board {
 		return player;
 	}
 
+	public byte getPlayeri() {
+		return player ? (byte)1 : (byte)-1;
+	}
+
 	public void place(int x, int y) {
 		if (x == -1 && y == -1) {
 			//unable to place
