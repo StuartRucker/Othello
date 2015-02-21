@@ -63,6 +63,7 @@ class Game {
 		CPU.update(b, x, y);
 		CPU.computeValue(CPU.getCurrent());
 		b = CPU.bestMove(CPU.getCurrent());
+		CPU.addLayer();
 		return played;
 	}
 

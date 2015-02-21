@@ -82,6 +82,10 @@ public class AI {
 		current = current.getChildren().get(0);
 	}
 
+	public void addLayer() {
+		//Add two layers, might want to use addLayers(int a) instead
+	}
+
 	/*public int getLowestScore(GameState root){
 	    //end case
 	    if(root.getChildren().get(0) == null){ //Bad code wtf stuart
