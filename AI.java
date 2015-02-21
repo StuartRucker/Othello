@@ -1,4 +1,3 @@
-//this does not work. Just an idea
 
 public class AI {
 	GameState current;
@@ -49,3 +48,4 @@ public class AI {
 	}
 	
 }
+
