@@ -3,7 +3,7 @@ public class AI {
 	GameState current;
 	public AI(Board init) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
-		generateDepth(0, 6, current);
+		generateDepth(0, 8, current);
 		computeValue(current);
 	}
 
