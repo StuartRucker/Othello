@@ -35,7 +35,7 @@ public class GameState {
 		return children;
 	}
 
-	public int getScore() {
+	public double getScore() {
 		// returns an (arbitrary) number denoting how good the board is
 		int sum = 0;
 		for (int x = 0; x < b.getWidth(); x++) {
@@ -43,6 +43,7 @@ public class GameState {
 				sum += b.get(x, y);
 			}
 		}
+		sum += Math.random()/2;
 		return sum;
 	}
 

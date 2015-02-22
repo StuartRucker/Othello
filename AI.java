@@ -3,33 +3,20 @@ public class AI {
 	GameState current;
 	public AI(Board init) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
-		initGenerateDepth(0, 8, current);
+		generateDepth(0, 6, current);
 		computeValue(current);
 	}
 
 	//now each gamestate has pointers to all sub gamestates
-	public void initGenerateDepth(int depth, int target, GameState root) {
+	public void generateDepth(int depth, int target, GameState root) {
 		//System.out.println("generating depth =" + depth);
 		if (depth == target) {
 			return;
 		}
 		for (GameState child : root.findAllChildren()) {
-			initGenerateDepth(depth + 1, target, child);
+			generateDepth(depth + 1, target, child);
 		}
 	}
-
-	/*public Board bestMove(){
-	    int bestWorstCaseScenario = Integer.MIN_VALUE;
-	    Board b = new Board();
-	    for(GameState x: current.getChildren()){
-	        int lowScore = getLowestScore(x);
-	        if(bestWorstCaseScenario < lowScore){
-	            b = x.getBoard();;
-	            bestWorstCaseScenario = lowScore;
-	        }
-	    }
-	    return b;
-	}*/
 
 	public double computeValue(GameState root) {
 		if (root.getChildren().isEmpty()) {
@@ -60,13 +47,6 @@ public class AI {
 		return b;
 	}
 
-	public void playMove(Board b) {
-
-	}
-	public void addLayers(int layersToAdd) {
-
-	}
-
 	public GameState getCurrent() {
 		return current;
 	}
@@ -82,9 +62,28 @@ public class AI {
 		current = current.getChildren().get(0);
 	}
 
-	public void addLayer() {
-		//Add two layers, might want to use addLayers(int a) instead
+	public void addLayers(GameState root, int i) {
+		if (root.getChildren().isEmpty()) {
+			generateDepth(0, i, root);
+			return;
+		}
+		for (GameState s : root.getChildren()) {
+			addLayers(s, i);
+		}
 	}
+
+	/*public Board bestMove(){
+	    int bestWorstCaseScenario = Integer.MIN_VALUE;
+	    Board b = new Board();
+	    for(GameState x: current.getChildren()){
+	        int lowScore = getLowestScore(x);
+	        if(bestWorstCaseScenario < lowScore){
+	            b = x.getBoard();;
+	            bestWorstCaseScenario = lowScore;
+	        }
+	    }
+	    return b;
+	}*/
 
 	/*public int getLowestScore(GameState root){
 	    //end case

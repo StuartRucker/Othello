@@ -54,16 +54,16 @@ class Game {
 	}*/
 
 	public boolean CPUPLay(byte x, byte y) {
-		try {
+		/*try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
-		}
+		}*/
 		boolean played = false;
 		CPU.update(b, x, y);
 		CPU.computeValue(CPU.getCurrent());
 		b = CPU.bestMove(CPU.getCurrent());
-		CPU.addLayer();
+		CPU.addLayers(CPU.getCurrent(), 2);
 		return played;
 	}
 
