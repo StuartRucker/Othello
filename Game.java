@@ -3,12 +3,12 @@ class Game {
 	private AI CPU;
 
 	public Game() {
-		this(8, 8);
+		this(8, 8, 6);
 	}
 
-	public Game(int w, int h) {
+	public Game(int w, int h, int l) {
 		b = new Board(w, h);
-		CPU = new AI(b);
+		CPU = new AI(b, l);
 	}
 
 	public boolean play(int i, int j) {
@@ -55,9 +55,9 @@ class Game {
 
 	public boolean CPUPLay(byte x, byte y) {
 		/*try {
-			Thread.sleep(1000);
+		    Thread.sleep(1000);
 		} catch (InterruptedException e1) {
-			e1.printStackTrace();
+		    e1.printStackTrace();
 		}*/
 		boolean played = false;
 		CPU.update(b, x, y);

@@ -1,9 +1,9 @@
 
 public class AI {
 	GameState current;
-	public AI(Board init) {
+	public AI(Board init, int depth) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
-		generateDepth(0, 8, current);
+		generateDepth(0, depth, current);
 		computeValue(current);
 	}
 
