@@ -75,8 +75,6 @@ public class GameState {
 
 	public void avg() {
 		v /= children.size();
-		v += getScore();
-		v /= 2;
 	}
 
 	public double getValue() {
