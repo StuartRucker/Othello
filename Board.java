@@ -1,11 +1,19 @@
+/*
+* @Board.java
+* @Authors: Stuart Rucker, Oscar Suen, Vinayak Kurup
+*
+* The entire board at any time-- represented using byte array
+*/
+
 class Board {
 	private int width;
 	private int height;
-	private byte[][] array; //black 1, white -1
+	private byte[][] array; //black = 1, white = -1, unfilled = 0
 	private boolean player; //black true, white false
 	//private int turn; //necessary? int?
 
-	public Board() {
+	public Board() //default constructor
+	{
 		this(8, 8);
 	}
 
@@ -49,20 +57,26 @@ class Board {
 		player = p;
 	}
 
-	public byte getPlayeri() {
+	public byte getPlayer() {
 		return player ? (byte)1 : (byte)(-1);
 	}
 
-	public void place(int x, int y) {
-		if (x == -1 && y == -1) {
+	public void place(int x, int y)  //I could be wrong-- but this doens't work if I understand how it's supposed to
+	{
+		if (x == -1 && y == -1) 
+		{
 			//unable to place
 			player = !player;
 			return;
 		}
-		if (array[x][y] == 0) {
-			if (player) {
+		if (array[x][y] == 0) 
+		{
+			if (player)
+			{
 				array[x][y] = 1;
-			} else if (!player) {
+			} 
+			else if (!player) 
+			{
 				array[x][y] = -1;
 			}
 			player = !player;
