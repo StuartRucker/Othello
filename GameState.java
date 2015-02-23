@@ -1,27 +1,48 @@
-//does not work. Just my work so far...
+/*
+*
+* @Authors: Stuart Rucker, Oscar Suen, Vinayak Kurup
+* @Version: February 23, 2015
+*
+* GameState: State of the board at any time
+*/
 
 import java.util.LinkedList;
 
-
 public class GameState {
 	Board b;
-	LinkedList<GameState> children;
-	double v;
-	byte color;
+	LinkedList<GameState> children; //pointers to the subsequent possible gamestates
+	double v; //"score" of board-- how good the board is
+	byte color; 
 	byte moveX;
 	byte moveY;
 
-	public GameState(Board newB, byte color1, byte x, byte y) {
+	// Constructor for new GameState
+	// Initializes everything
+	public GameState(Board input_board, byte color1, byte x, byte y) {
 		children = new LinkedList<GameState>();
-		b = newB;
-		v = 0;
+		b = input_board;
+		v = 0.0;
 		color = color1;
 		moveX = x;
 		moveY = y;
 	}
-
-	public LinkedList<GameState> findAllChildren() {
+	
+	//Empty constructor (overrides the default Object constructor)
+	public GameState()
+	{
+		b = null;
+		children = new LinkedList<GameState>();
+		v = 0.0;
+		color = 0.0;
+		moveX = (byte)0;
+		moveY = (byte)0;
+	}
+	
+	//Finds all of the children Gamestates (possible moves from current gamestate)
+	public LinkedList<GameState> findAllChildren() 
+	{
 		// check each play location X,Y
+		// also updates children (we need to remember that)
 		for (int x = 0; x < b.getWidth(); x++) {
 			for (int y = 0; y < b.getHeight(); y++) {
 				if (b.get(x, y) == 0) { // if an empty square
@@ -35,11 +56,14 @@ public class GameState {
 		return children;
 	}
 
-	public double getScore() {
-		// returns an (arbitrary) number denoting how good the board is
+	//Returns a number (helps AI decide next move) on how good the board is
+	public double getScore() 
+	{
 		int sum = 0;
-		for (int x = 0; x < b.getWidth(); x++) {
-			for (int y = 0; y < b.getHeight(); y++) {
+		for (int x = 0; x < b.getWidth(); x++) 
+		{
+			for (int y = 0; y < b.getHeight(); y++) 
+			{
 				sum += b.get(x, y);
 			}
 		}
@@ -52,7 +76,8 @@ public class GameState {
 	}
 
 	// board configuration after playing a tile on board c, at position x, y
-	public Board getNextBoard(Board c, int x, int y, byte color) {
+	public Board getNextBoard(Board c, int x, int y, byte color) 
+	{
 		Board r = c.copy();
 		if (Engine.capture(r, x, y, color)) {
 			return r;
@@ -69,8 +94,8 @@ public class GameState {
 		return b;
 	}
 
-	public void addValue(double v1) {
-		v += v1;
+	public void addValue(double input_value) {
+		v += input_value;
 	}
 
 	public void avg() {
