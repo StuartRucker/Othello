@@ -8,6 +8,7 @@ public class AI {
 	}
 
 	//now each gamestate has pointers to all sub gamestates
+	//what does generating the depth do?
 	public void generateDepth(int depth, int target, GameState root) {
 		//System.out.println("generating depth =" + depth);
 		if (depth == target) {
