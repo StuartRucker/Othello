@@ -69,6 +69,8 @@ public class Display extends JPanel implements MouseListener {
             paintComponent(getGraphics());
             g.CPUPLay((byte)x, (byte)y);
             paintComponent(getGraphics());
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "You can't play there");
         }
 
 
