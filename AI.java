@@ -5,7 +5,7 @@ public class AI {
 	public AI(Board init, int depth) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
-		computeValue(current);
+		minimax(current, false);
 	}
 
 	//now each gamestate has pointers to all sub gamestates
@@ -17,23 +17,6 @@ public class AI {
 		}
 		for (GameState child : root.findAllChildren()) {
 			generateDepth(depth + 1, target, child);
-		}
-	}
-
-	public double computeValue(GameState root) {
-		//will be superseded by minimax
-		if (root.getChildren().isEmpty()) {
-			root.addValue(root.getScore());
-			//System.out.println("Leaf Score: " + root.getScore());
-			return root.getScore();
-		} else {
-			int rtn = 0;
-			for (GameState s : root.getChildren()) {
-				root.addValue(computeValue(s));
-			}
-			root.avg();
-			//System.out.println("Internal Value: " + root.getValue());
-			return root.getValue();
 		}
 	}
 
@@ -77,7 +60,7 @@ public class AI {
 
 	public double minimax(GameState root, boolean mplayer) {
 		//Copy of wikipedia algorithm translated to java
-		if (root.getChildren().isEmpty()) {//change to isTerminal later
+		if (root.isTerminal()) {//change to isTerminal later
 			root.setValue(root.getScore());
 			return root.getScore();
 		}
@@ -99,31 +82,6 @@ public class AI {
 			return bestValue;
 		}
 	}
-
-	/*public Board bestMove(){
-	    int bestWorstCaseScenario = Integer.MIN_VALUE;
-	    Board b = new Board();
-	    for(GameState x: current.getChildren()){
-	        int lowScore = getLowestScore(x);
-	        if(bestWorstCaseScenario < lowScore){
-	            b = x.getBoard();;
-	            bestWorstCaseScenario = lowScore;
-	        }
-	    }
-	    return b;
-	}*/
-
-	/*public int getLowestScore(GameState root){
-	    //end case
-	    if(root.getChildren().get(0) == null){ //Bad code wtf stuart
-	        return root.getScore();
-	    }
-	    int min = Integer.MAX_VALUE;
-	    for(GameState s:root.getChildren()){
-	        min = Math.min(min, getLowestScore(s));
-	    }
-	    return min;
-	}*/
 
 }
 

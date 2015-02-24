@@ -75,7 +75,7 @@ public class GameState {
 
 	public boolean isTerminal() {
 		//Needs implementation of whether node is win/loss for minimax
-		return false;
+		return children.isEmpty();
 	}
 
 	public LinkedList<GameState> getChildren() {
@@ -84,14 +84,6 @@ public class GameState {
 
 	public Board getBoard() {
 		return b;
-	}
-
-	public void addValue(double input_value) {
-		v += input_value;
-	}
-
-	public void avg() {
-		v /= children.size();
 	}
 
 	public double getValue() {
