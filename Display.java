@@ -1,4 +1,4 @@
-import java.awt.Color;
+/*import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -10,6 +10,20 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+*/
+
+/*
+*
+* @Authors: Stuart Rucker, Oscar Suen, Vinayak Kurup
+* @Version: February 24, 2015
+*
+* Display.java--> 
+*/
+
+import java.awt.*;
+import java.util.Random;
+import java.swing.*;
+import java.awt.event.*;
 
 public class Display extends JPanel implements MouseListener {
     int width, height;
@@ -20,7 +34,8 @@ public class Display extends JPanel implements MouseListener {
         addMouseListener(this);
         setBackground(new Color(65, 140, 35));
         g = new Game();
-
+        width = height = 800;
+        squareWidth = squareHeight = 100;
     }
     public void size(int x, int y) {
         this.setPreferredSize(new Dimension(x, y));
@@ -39,18 +54,20 @@ public class Display extends JPanel implements MouseListener {
         for (int y = squareHeight; y < height - 4; y += squareWidth) {
             graph.fillRect(0, y, width, 4);
         }
-        for (int x = 0; x < 8; x ++) {
-            for (int y = 0; y < 8; y ++) {
-                //piece is white
-
-                if (g.getBoard().get(x, y) == -1) {
+        for (int x = 0; x < 8; x ++) 
+        {
+            for (int y = 0; y < 8; y ++) 
+            {
+                if (g.getBoard().get(x, y) == -1) 
+                {
                     graph.setColor(new Color(242, 235, 201));
                     graph.fillOval(x * squareHeight + 4, y * squareWidth + 4, squareWidth - 4, squareHeight - 4);
-                } else if (g.getBoard().get(x, y) == 1) {
+                } 
+                else if (g.getBoard().get(x, y) == 1) 
+                {
                     graph.setColor(Color.BLACK);
                     graph.fillOval(x * squareHeight + 4, y * squareWidth + 4, squareWidth - 4, squareHeight - 4);
                 }
-
             }
         }
 
