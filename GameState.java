@@ -49,7 +49,7 @@ public class GameState {
 
 	//Returns a number (helps AI decide next move) on how good the board is
 	public double getScore() {
-		int sum = 0;
+		double sum = 0;
 		for (int x = 0; x < b.getWidth(); x++) {
 			for (int y = 0; y < b.getHeight(); y++) {
 				sum += b.get(x, y);
@@ -59,7 +59,7 @@ public class GameState {
 		sum += 3 * b.get(b.getWidth() - 1, 0);
 		sum += 3 * b.get(0, b.getHeight() - 1);
 		sum += 3 * b.get(b.getWidth() - 1, b.getHeight() - 1);
-		sum += Math.random() / 2;
+		sum += Math.random() - 0.5;
 		return sum;
 	}
 
@@ -96,6 +96,10 @@ public class GameState {
 
 	public double getValue() {
 		return v;
+	}
+
+	public void setValue(double va) {
+		v = va;
 	}
 
 	public byte getX() {

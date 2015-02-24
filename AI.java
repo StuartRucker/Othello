@@ -1,6 +1,7 @@
-
 public class AI {
+
 	GameState current;
+
 	public AI(Board init, int depth) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
@@ -20,6 +21,7 @@ public class AI {
 	}
 
 	public double computeValue(GameState root) {
+		//will be superseded by minimax
 		if (root.getChildren().isEmpty()) {
 			root.addValue(root.getScore());
 			//System.out.println("Leaf Score: " + root.getScore());
@@ -73,23 +75,27 @@ public class AI {
 		}
 	}
 
-	public double minimax(GameState root, int depth, boolean mplayer) {
-		if (depth == 0 || root.isTerminal()) {
-			return root.getValue();
+	public double minimax(GameState root, boolean mplayer) {
+		//Copy of wikipedia algorithm translated to java
+		if (root.getChildren().isEmpty()) {//change to isTerminal later
+			root.setValue(root.getScore());
+			return root.getScore();
 		}
 		if (mplayer) {
 			double bestValue = Double.MIN_VALUE;
 			for (GameState s : root.getChildren()) {
-				double val = minimax(s,depth-1,false);
+				double val = minimax(s, false);
 				bestValue = Math.max(bestValue, val);
 			}
+			root.setValue(bestValue);
 			return bestValue;
 		} else {
 			double bestValue = Double.MAX_VALUE;
 			for (GameState s : root.getChildren()) {
-				double val = minimax(s,depth-1,true);
-				bestValue = Math.min(bestValue,val);
+				double val = minimax(s, true);
+				bestValue = Math.min(bestValue, val);
 			}
+			root.setValue(bestValue);
 			return bestValue;
 		}
 	}
