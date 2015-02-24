@@ -1,14 +1,6 @@
-/*
-*
-* @Author: Vinayak Kurup, Stuart Rucker, Oscar Suen
-* @Version: February 24, 2015
-*
-* AI Class-- runs the AI for the game
-*/
 
 public class AI {
 	GameState current;
-	//Initializes Board
 	public AI(Board init, int depth) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
@@ -27,7 +19,6 @@ public class AI {
 		}
 	}
 
-	//Computes the value of the board by iterating through GameState children
 	public double computeValue(GameState root) {
 		if (root.getChildren().isEmpty()) {
 			root.addValue(root.getScore());
@@ -43,16 +34,13 @@ public class AI {
 			return root.getValue();
 		}
 	}
-	
-	//Returns the board that has the best move (relying on computeValue()
+
 	public Board bestMove(GameState root) {
-		double min = Double.MAX_VALUE;
+		double m = Double.MAX_VALUE;
 		Board b = null;
-		for (GameState c : root.getChildren()) 
-		{
-			if (min > c.getValue()) 
-			{ //Stuart wtf > was correct
-				min = c.getValue();
+		for (GameState c : root.getChildren()) {
+			if (m > c.getValue()) {
+				m = c.getValue();
 				b = c.getBoard();
 				current = c;
 			}
@@ -60,18 +48,13 @@ public class AI {
 		return b;
 	}
 
-	//Current gamestate
-	public GameState getCurrent() 
-	{
+	public GameState getCurrent() {
 		return current;
 	}
 
-	public void update(Board b, byte x, byte y) 
-	{
-		for (GameState s : current.getChildren()) 
-		{
-			if (s.getX() == x && s.getY() == y) 
-			{ //Why no worky-worky... HMM let's figure it out
+	public void update(Board b, byte x, byte y) {
+		for (GameState s : current.getChildren()) {
+			if (s.getX() == x && s.getY() == y) {
 				current = s;
 				return;
 			}
@@ -87,6 +70,27 @@ public class AI {
 		}
 		for (GameState s : root.getChildren()) {
 			addLayers(s, i);
+		}
+	}
+
+	public double minimax(GameState root, int depth, boolean mplayer) {
+		if (depth == 0 || root.isTerminal()) {
+			return root.getValue();
+		}
+		if (mplayer) {
+			double bestValue = Double.MIN_VALUE;
+			for (GameState s : root.getChildren()) {
+				double val = minimax(s,depth-1,false);
+				bestValue = Math.max(bestValue, val);
+			}
+			return bestValue;
+		} else {
+			double bestValue = Double.MAX_VALUE;
+			for (GameState s : root.getChildren()) {
+				double val = minimax(s,depth-1,true);
+				bestValue = Math.min(bestValue,val);
+			}
+			return bestValue;
 		}
 	}
 

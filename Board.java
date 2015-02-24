@@ -57,7 +57,7 @@ class Board {
 		player = p;
 	}
 
-	public byte getPlayer() {
+	public byte getPlayeri() {
 		return player ? (byte)1 : (byte)(-1);
 	}
 

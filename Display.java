@@ -1,4 +1,4 @@
-/*import java.awt.Color;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -10,32 +10,18 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-*/
-
-/*
-*
-* @Authors: Stuart Rucker, Oscar Suen, Vinayak Kurup
-* @Version: February 24, 2015
-*
-* Display.java--> 
-*/
-
-import java.awt.*;
-import java.util.Random;
-import java.swing.*;
-import java.awt.event.*;
 
 public class Display extends JPanel implements MouseListener {
     int width, height;
     int squareWidth, squareHeight;
     boolean CPUhasNoMove;
     Game g;
+
     public Display() {
         addMouseListener(this);
         setBackground(new Color(65, 140, 35));
         g = new Game();
-        width = height = 800;
-        squareWidth = squareHeight = 100;
+
     }
     public void size(int x, int y) {
         this.setPreferredSize(new Dimension(x, y));
@@ -54,31 +40,22 @@ public class Display extends JPanel implements MouseListener {
         for (int y = squareHeight; y < height - 4; y += squareWidth) {
             graph.fillRect(0, y, width, 4);
         }
-        for (int x = 0; x < 8; x ++) 
-        {
-            for (int y = 0; y < 8; y ++) 
-            {
-                if (g.getBoard().get(x, y) == -1) 
-                {
+        for (int x = 0; x < 8; x ++) {
+            for (int y = 0; y < 8; y ++) {
+                //piece is white
+                if (g.getBoard().get(x, y) == -1) {
                     graph.setColor(new Color(242, 235, 201));
                     graph.fillOval(x * squareHeight + 4, y * squareWidth + 4, squareWidth - 4, squareHeight - 4);
-                } 
-                else if (g.getBoard().get(x, y) == 1) 
-                {
+                } else if (g.getBoard().get(x, y) == 1) {
                     graph.setColor(Color.BLACK);
                     graph.fillOval(x * squareHeight + 4, y * squareWidth + 4, squareWidth - 4, squareHeight - 4);
                 }
             }
         }
-
     }
-
-
-
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
         int x = (e.getX()) / squareWidth;
         int y = (e.getY()) / squareHeight;
 
@@ -90,11 +67,11 @@ public class Display extends JPanel implements MouseListener {
             JOptionPane.showMessageDialog(new JFrame(), "You can't play there");
         }
 
-
         boolean c = g.canPLay((byte) (-1));
         boolean u = g.canPLay((byte) (1));
         while (!u && c) { //if only the cpu can play
-            g.CPUPLay((byte)(-1), (byte)(-1)); //broken because parameters added
+            System.out.println("Only CPU can play");
+            g.CPUPLay((byte)(-1), (byte)(-1)); //Never been tested
             c = g.canPLay((byte) (-1));
             u = g.canPLay((byte) (1));
         }
@@ -102,11 +79,12 @@ public class Display extends JPanel implements MouseListener {
             gg();
         }
     }
+
     public void gg() {
 
         int b = g.getScore((byte)1);
         int w = g.getScore((byte)(-1));
-        String whoWins = "NULL";
+        String whoWins = "";
         //these don't work for some reason
         if (b > w)whoWins = "you win!\n";
         if (b < w)whoWins = "you lose!\n";
@@ -114,31 +92,19 @@ public class Display extends JPanel implements MouseListener {
 
         whoWins += "you have " + b + " tiles, CPU has " + w;
         JOptionPane.showMessageDialog(new JFrame(), whoWins);
-        g.endGame();
+        //g.endGame();
         g = new Game();
         paintComponent(getGraphics());
 
     }
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
 
     @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
+    public void mouseClicked(MouseEvent e) {}
+    @Override
+    public void mousePressed(MouseEvent e) {}
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
 }
 
