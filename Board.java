@@ -12,8 +12,7 @@ class Board {
 	private boolean player; //black true, white false
 	//private int turn; //necessary? int?
 
-	public Board() //default constructor
-	{
+	public Board() { //default constructor
 		this(8, 8);
 	}
 
@@ -61,22 +60,16 @@ class Board {
 		return player ? (byte)1 : (byte)(-1);
 	}
 
-	public void place(int x, int y)  //I could be wrong-- but this doens't work if I understand how it's supposed to
-	{
-		if (x == -1 && y == -1) 
-		{
+	public void place(int x, int y) { //I could be wrong-- but this doens't work if I understand how it's supposed to
+		if (x == -1 && y == -1) {
 			//unable to place
 			player = !player;
 			return;
 		}
-		if (array[x][y] == 0) 
-		{
-			if (player)
-			{
+		if (array[x][y] == 0) {
+			if (player) {
 				array[x][y] = 1;
-			} 
-			else if (!player) 
-			{
+			} else if (!player) {
 				array[x][y] = -1;
 			}
 			player = !player;
@@ -132,6 +125,27 @@ class Board {
 
 	public byte[][] getArray() {
 		return array;
+	}
+
+	public double win() {
+		boolean b = false;
+		boolean w = false;
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				if (array[i][j] == (byte)(1)) {
+					b = true;
+				} else if (array[i][j] == (byte)(-1)) {
+					w = true;
+				}
+				if (b && w) {
+					return 0;
+				}
+			}
+		}
+		if (b) {
+			return Double.POSITIVE_INFINITY;
+		}
+		return Double.NEGATIVE_INFINITY;
 	}
 
 }

@@ -9,12 +9,12 @@
 import java.util.LinkedList;
 
 public class GameState {
-	Board b;
-	LinkedList<GameState> children; //pointers to the subsequent possible gamestates
-	double v; //"score" of board-- how good the board is
-	byte color;
-	byte moveX;
-	byte moveY;
+	private Board b;
+	private LinkedList<GameState> children; //pointers to the subsequent possible gamestates
+	private double v; //"score" of board-- how good the board is
+	private byte color;
+	private byte moveX;
+	private byte moveY;
 
 	// Constructor for new GameState
 	// Initializes everything
@@ -60,6 +60,7 @@ public class GameState {
 		sum += 3 * b.get(0, b.getHeight() - 1);
 		sum += 3 * b.get(b.getWidth() - 1, b.getHeight() - 1);
 		sum += Math.random() - 0.5;
+		sum += b.win();
 		return sum;
 	}
 

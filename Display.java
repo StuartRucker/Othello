@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Display extends JPanel implements MouseListener {
-    int width, height;
-    int squareWidth, squareHeight;
-    boolean CPUhasNoMove;
-    Game g;
+    private int width, height;
+    private int squareWidth, squareHeight;
+    private boolean CPUhasNoMove;
+    private Game g;
 
     public Display() {
         addMouseListener(this);
@@ -71,7 +71,8 @@ public class Display extends JPanel implements MouseListener {
         boolean u = g.canPLay((byte) (1));
         while (!u && c) { //if only the cpu can play
             System.out.println("Only CPU can play");
-            g.CPUPLay((byte)(-1), (byte)(-1)); //Never been tested
+            g.CPUPLay((byte)(-1), (byte)(-1)); //I think this works now
+            paintComponent(getGraphics());
             c = g.canPLay((byte) (-1));
             u = g.canPLay((byte) (1));
         }

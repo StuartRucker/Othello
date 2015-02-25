@@ -1,11 +1,11 @@
 public class AI {
 
-	GameState current;
+	private GameState current;
 
 	public AI(Board init, int depth) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
-		negaminab(current, (byte)(-1), Double.MIN_VALUE, Double.MAX_VALUE);
+		negaminab(current, (byte)(-1), Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 	}
 
 	//now each gamestate has pointers to all sub gamestates

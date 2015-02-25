@@ -26,7 +26,7 @@ class Game {
 	public void print() {
 		System.out.println(b.toString());
 	}
-	
+
 	public Board getBoard() {
 		return b;
 	}
@@ -39,7 +39,7 @@ class Game {
 		}*/
 		boolean played = false;
 		CPU.update(b, x, y);
-		CPU.negaminab(CPU.getCurrent(),(byte)(-1), Double.MIN_VALUE, Double.MAX_VALUE);
+		CPU.negaminab(CPU.getCurrent(), (byte)(-1), Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		b = CPU.bestMove(CPU.getCurrent());
 		CPU.addLayers(CPU.getCurrent(), 2);
 		return played;
