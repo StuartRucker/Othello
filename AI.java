@@ -5,7 +5,7 @@ public class AI {
 	public AI(Board init, int depth) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
-		negamin(current, (byte)(-1));
+		negaminab(current, (byte)(-1), Double.MIN_VALUE, Double.MAX_VALUE);
 	}
 
 	//now each gamestate has pointers to all sub gamestates
@@ -58,7 +58,54 @@ public class AI {
 		}
 	}
 
-	public double minimax(GameState root, boolean mplayer) {
+	public double negaminab(GameState root, byte player, double alpha, double beta) {
+		if (root.isTerminal()) {
+			return player * root.setValue(root.getScore());
+		}
+		double bestValue = Double.MAX_VALUE;
+		for (GameState s : root.getChildren()) {
+			double val = -negaminab(s,(byte)(-player), -beta, -alpha);
+			bestValue = Math.min(bestValue, val);
+			beta = Math.min(beta, val);
+			if (alpha <= beta) {
+				break;
+			}
+		}
+		return root.setValue(bestValue);
+	}
+
+	/*public double negamin(GameState root, byte player) {
+		//V3 negamin w/o a-b pruning
+		if (root.isTerminal()) {
+			return player * root.setValue(root.getScore());
+		}
+		double bestValue = Double.MAX_VALUE;
+		for (GameState s : root.getChildren()) {
+			double val = -negamin(s,(byte)(-player));
+			bestValue = Math.min(bestValue, val);
+		}
+		return root.setValue(bestValue);
+	}*/
+
+	/*public double computeValue(GameState root) {
+		//V1 computed values by averaging bottom nodes
+		if (root.getChildren().isEmpty()) {
+			root.addValue(root.getScore());
+			//System.out.println("Leaf Score: " + root.getScore());
+			return root.getScore();
+		} else {
+			int rtn = 0;
+			for (GameState s : root.getChildren()) {
+				root.addValue(computeValue(s));
+			}
+			root.avg();
+			//System.out.println("Internal Value: " + root.getValue());
+			return root.getValue();
+		}
+	}*/
+
+	/*public double minimax(GameState root, boolean mplayer) {
+		//V2 basic minimax, superceded by negamin
 		//Copy of wikipedia algorithm translated to java
 		if (root.isTerminal()) {//change to isTerminal later
 			root.setValue(root.getScore());
@@ -81,19 +128,7 @@ public class AI {
 			root.setValue(bestValue);
 			return bestValue;
 		}
-	}
-
-	public double negamin(GameState root, byte player) {
-		if (root.isTerminal()) {
-			return player * root.setValue(root.getScore());
-		}
-		double bestValue = Double.MAX_VALUE;
-		for (GameState s : root.getChildren()) {
-			double val = -negamin(s,(byte)(-player));
-			bestValue = Math.min(bestValue, val);
-		}
-		return root.setValue(bestValue);
-	}
+	}*/
 
 }
 

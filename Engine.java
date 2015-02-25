@@ -52,17 +52,16 @@ class Engine {
 
 	public static boolean canPLay(Board r, byte color) {
 		Board b = r.copy();
-		boolean canPlay = false;
 		for (int x = 0; x < r.getWidth(); x++) {
 			for (int y = 0; y < r.getHeight(); y++) {
-				if (!canPlay && b.get(x, y) == 0)
+				if (b.get(x, y) == 0)
 					if (capture(b, x, y, color)) {
-						canPlay = true;
-						System.out.println("you can play at " + (x + 1) + " " + (1 + y));
+						if (color == 1) System.out.println("you can play at " + (x + 1) + " " + (1 + y));
+						return true;
 					}
 			}
 		}
-		return canPlay;
+		return false;
 
 	}
 }
