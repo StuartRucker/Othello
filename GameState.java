@@ -90,8 +90,9 @@ public class GameState {
 		return v;
 	}
 
-	public void setValue(double va) {
+	public double setValue(double va) {
 		v = va;
+		return v;
 	}
 
 	public byte getX() {

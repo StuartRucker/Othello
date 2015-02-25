@@ -53,8 +53,8 @@ class Engine {
 	public static boolean canPLay(Board r, byte color) {
 		Board b = r.copy();
 		boolean canPlay = false;
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
+		for (int x = 0; x < r.getWidth(); x++) {
+			for (int y = 0; y < r.getHeight(); y++) {
 				if (!canPlay && b.get(x, y) == 0)
 					if (capture(b, x, y, color)) {
 						canPlay = true;

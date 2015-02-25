@@ -5,7 +5,7 @@ public class AI {
 	public AI(Board init, int depth) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
-		minimax(current, false);
+		negamin(current, (byte)(-1));
 	}
 
 	//now each gamestate has pointers to all sub gamestates
@@ -81,6 +81,18 @@ public class AI {
 			root.setValue(bestValue);
 			return bestValue;
 		}
+	}
+
+	public double negamin(GameState root, byte player) {
+		if (root.isTerminal()) {
+			return player * root.setValue(root.getScore());
+		}
+		double bestValue = Double.MAX_VALUE;
+		for (GameState s : root.getChildren()) {
+			double val = -negamin(s,(byte)(-player));
+			bestValue = Math.min(bestValue, val);
+		}
+		return root.setValue(bestValue);
 	}
 
 }
