@@ -1,3 +1,11 @@
+/*
+*
+* @Authors: Vinayak Kurup, Oscar Suen, Stuart Rucker
+* @Version: February 26, 2015
+*
+* AI.java--> uses GameStates to decide the best move to play at the time
+*/
+
 public class AI {
 
 	private GameState current;
