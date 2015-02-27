@@ -1,17 +1,17 @@
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Random;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import java.io.*;
+import javax.sound.sampled.*;
+
 
 public class Display extends JPanel implements MouseListener {
     private int width, height;
@@ -20,6 +20,7 @@ public class Display extends JPanel implements MouseListener {
     private Game g;
     int depth;
     int movesplayed = 0;
+    long MIN_WAIT = 2000;
    
 
     public Display(int depth1) {
@@ -28,7 +29,7 @@ public class Display extends JPanel implements MouseListener {
         depth = depth1;
         g = new Game(8,8,depth);
        
-        
+
 
     }
     public void size(int x, int y) {
@@ -74,7 +75,15 @@ public class Display extends JPanel implements MouseListener {
         if (g.play(x, y)) {
         	paintComponent(getGraphics());
         	Runner.changePrompt("move " + (++movesplayed));
-            g.CPUPLay((byte)x, (byte)y);
+            long beforeCPU = System.currentTimeMillis();
+        	g.CPUPLay((byte)x, (byte)y);
+        	long afterCPU = System.currentTimeMillis();
+        	//wait 
+        	if(afterCPU < beforeCPU + MIN_WAIT){
+        		try {
+					Thread.sleep(MIN_WAIT-(afterCPU-beforeCPU));
+				} catch (InterruptedException e1) {}
+        	}
             paintComponent(getGraphics());
         } else {
             JOptionPane.showMessageDialog(new JFrame(), "You can't play there");
@@ -94,7 +103,7 @@ public class Display extends JPanel implements MouseListener {
         }
   
     }
-
+  
     public void gg() {
 
         int b = g.getScore((byte)1);
@@ -124,4 +133,5 @@ public class Display extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {}
 }
+
 
