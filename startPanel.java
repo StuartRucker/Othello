@@ -22,7 +22,7 @@ public class startPanel extends JPanel implements ActionListener //Start menu
 
 	public startPanel(int w, int h)
 	{
-		String[] modes = {"Depth 1", "Depth 2", "Depth 3", "Depth 4", "Depth 5", "Depth 6", "Depth 7"};
+		String[] modes = {"Depth 4", "Depth 5", "Depth 6"};
 	 	selection = new JComboBox(modes);
 	 	selection.setVisible(true);
 		this.add(selection);
@@ -58,14 +58,10 @@ public class startPanel extends JPanel implements ActionListener //Start menu
         if(e.getSource() == onwards)
         {
         	String s = (String)selection.getSelectedItem();
-        	int depth;
-        	if(s.equals("Depth 7")) depth = 7;
-        	else if(s.equals("Depth 6")) depth = 6;
+        	int depth = 5;
+        	if(s.equals("Depth 6")) depth = 6;
         	else if(s.equals("Depth 5")) depth = 5;
         	else if(s.equals("Depth 4")) depth = 4;
-        	else if(s.equals("Depth 3")) depth = 3;
-        	else if(s.equals("Depth 2")) depth = 2;
-        	else depth = 1;
         	
         	this.setVisible(false);
         	Runner.startGame(depth);
