@@ -27,7 +27,7 @@ public class GameState {
 		moveY = y;
 	}
 
-	
+
 	public LinkedList<GameState> findAllChildren() {
 		//Finds all of the children Gamestates (possible moves from current gamestate)
 		// check each play location X,Y
@@ -48,7 +48,7 @@ public class GameState {
 		return children;
 	}
 
-	
+
 	public double getScore() {
 		//Returns a number (helps AI decide next move) on how good the board is
 		double sum = 0;
@@ -66,7 +66,7 @@ public class GameState {
 		return sum;
 	}
 
-	
+
 	public Board getNextBoard(Board c, int x, int y, byte color) {
 		// board configuration after playing a tile on board c, at position x, y
 		Board r = c.copy();
