@@ -16,9 +16,9 @@ public class GameState {
 	private byte moveX;
 	private byte moveY;
 
-	// Constructor for new GameState
-	// Initializes everything
 	public GameState(Board input_board, byte color1, byte x, byte y) {
+		// Constructor for new GameState
+		// Initializes everything
 		children = new LinkedList<GameState>();
 		b = input_board;
 		v = Double.NaN;
@@ -27,8 +27,9 @@ public class GameState {
 		moveY = y;
 	}
 
-	//Finds all of the children Gamestates (possible moves from current gamestate)
+	
 	public LinkedList<GameState> findAllChildren() {
+		//Finds all of the children Gamestates (possible moves from current gamestate)
 		// check each play location X,Y
 		// also updates children (we need to remember that)
 		for (int x = 0; x < b.getWidth(); x++) {
@@ -47,8 +48,9 @@ public class GameState {
 		return children;
 	}
 
-	//Returns a number (helps AI decide next move) on how good the board is
+	
 	public double getScore() {
+		//Returns a number (helps AI decide next move) on how good the board is
 		double sum = 0;
 		for (int x = 0; x < b.getWidth(); x++) {
 			for (int y = 0; y < b.getHeight(); y++) {
@@ -64,8 +66,9 @@ public class GameState {
 		return sum;
 	}
 
-	// board configuration after playing a tile on board c, at position x, y
+	
 	public Board getNextBoard(Board c, int x, int y, byte color) {
+		// board configuration after playing a tile on board c, at position x, y
 		Board r = c.copy();
 		if (Engine.capture(r, x, y, color)) {
 			return r;
