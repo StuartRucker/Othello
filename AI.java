@@ -13,7 +13,7 @@ public class AI {
 	public AI(Board init, int depth) {
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
-		negaminab(current, (byte)(-1), Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+		negamin(current, (byte)(-1));
 	}
 
 	//now each gamestate has pointers to all sub gamestates
@@ -66,7 +66,7 @@ public class AI {
 		}
 	}
 
-	public double negaminab(GameState root, byte player, double alpha, double beta) {
+	/*public double negaminab(GameState root, byte player, double alpha, double beta) {
 		if (root.isTerminal()) {
 			return player * root.setValue(root.getScore());
 		}
@@ -80,9 +80,9 @@ public class AI {
 			}
 		}
 		return root.setValue(bestValue);
-	}
+	}*/
 
-	/*public double negamin(GameState root, byte player) {
+	public double negamin(GameState root, byte player) {
 		//V3 negamin w/o a-b pruning
 		if (root.isTerminal()) {
 			return player * root.setValue(root.getScore());
@@ -93,7 +93,7 @@ public class AI {
 			bestValue = Math.min(bestValue, val);
 		}
 		return root.setValue(bestValue);
-	}*/
+	}
 
 	/*public double computeValue(GameState root) {
 		//V1 computed values by averaging bottom nodes

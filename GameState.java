@@ -21,7 +21,7 @@ public class GameState {
 	public GameState(Board input_board, byte color1, byte x, byte y) {
 		children = new LinkedList<GameState>();
 		b = input_board;
-		v = 0.0;
+		v = Double.NaN;
 		color = color1;
 		moveX = x;
 		moveY = y;
