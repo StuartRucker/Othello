@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -16,11 +18,17 @@ public class Display extends JPanel implements MouseListener {
     private int squareWidth, squareHeight;
     private boolean CPUhasNoMove;
     private Game g;
+    int depth;
+    int movesplayed = 0;
+   
 
-    public Display() {
+    public Display(int depth1) {
         addMouseListener(this);
         setBackground(new Color(65, 140, 35));
-        g = new Game();
+        depth = depth1;
+        g = new Game(8,8,depth);
+       
+        
 
     }
     public void size(int x, int y) {
@@ -56,11 +64,16 @@ public class Display extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        int x = (e.getX()) / squareWidth;
+        
+
+    	
+    	
+    	int x = (e.getX()) / squareWidth;
         int y = (e.getY()) / squareHeight;
 
         if (g.play(x, y)) {
-            paintComponent(getGraphics());
+        	paintComponent(getGraphics());
+        	Runner.changePrompt("move " + (++movesplayed));
             g.CPUPLay((byte)x, (byte)y);
             paintComponent(getGraphics());
         } else {
@@ -79,6 +92,7 @@ public class Display extends JPanel implements MouseListener {
         if (!u && !c) {
             gg();
         }
+  
     }
 
     public void gg() {
@@ -94,8 +108,10 @@ public class Display extends JPanel implements MouseListener {
         whoWins += "you have " + b + " tiles, CPU has " + w;
         JOptionPane.showMessageDialog(new JFrame(), whoWins);
         //g.endGame();
-        g = new Game();
+        g = new Game(8,8,depth);
         paintComponent(getGraphics());
+        movesplayed = 0;
+        Runner.changePrompt("first Move");
 
     }
 
