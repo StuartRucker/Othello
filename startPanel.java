@@ -20,8 +20,9 @@ public class startPanel extends JPanel implements ActionListener {
     int H;
 
     public startPanel(int w, int h) {
-        String[] modes = {"Depth 4", "Depth 5", "Depth 6"};
+        String[] modes = {"Depth 4", "Depth 5", "Depth 6", "Depth 7"};
         selection = new JComboBox(modes);
+        selection.setSelectedIndex(1);
         selection.setVisible(true);
         this.add(selection);
 
@@ -51,7 +52,8 @@ public class startPanel extends JPanel implements ActionListener {
         if (e.getSource() == onwards) {
             String s = (String)selection.getSelectedItem();
             int depth = 5;
-            if (s.equals("Depth 6")) depth = 6;
+            if (s.equals("Depth 7")) depth = 7;
+            else if (s.equals("Depth 6")) depth = 6;
             else if (s.equals("Depth 5")) depth = 5;
             else if (s.equals("Depth 4")) depth = 4;
 
