@@ -1,3 +1,4 @@
+//AI.java
 /*
 *
 * @Authors: Vinayak Kurup, Oscar Suen, Stuart Rucker
@@ -10,44 +11,56 @@ public class AI {
 
 	private GameState current;
 
-	public AI(Board init, int depth) {
+	public AI(Board init, int depth) // Current board and depth to look forward 
+	{
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
 		negamin(current, (byte)(-1));
 	}
 
-	//now each gamestate has pointers to all sub gamestates
-	//what does generating the depth do?
-	public void generateDepth(int depth, int target, GameState root) {
-		//System.out.println("generating depth =" + depth);
-		if (depth == target) {
+	public void generateDepth(int depth, int target, GameState root) // calls recurisvely on itsef
+	{
+		if (depth == target) //base case (terminates when depth = target)
+		{
 			return;
 		}
-		for (GameState child : root.findAllChildren()) {
+		for (GameState child : root.findAllChildren()) //goes through each of the children of the GameState
+		{
 			generateDepth(depth + 1, target, child);
 		}
 	}
 
-	public Board bestMove(GameState root) {
-		double m = Double.MAX_VALUE;
+	public Board bestMove(GameState root) //Figures out the best move to play
+	{
+		double m = Double.MAX_VALUE; //nothing can go greater than m
 		Board b = null;
-		for (GameState c : root.getChildren()) {
-			if (m > c.getValue()) {
+		for (GameState c : root.getChildren()) 
+		{
+			//Goes through all the children and ends with the GameState 
+			//that is the least value (best move)
+			if (m > c.getValue()) //b/c m is greatest val, will be true first time
+			{
 				m = c.getValue();
 				b = c.getBoard();
 				current = c;
-			}
+			} 
 		}
 		return b;
 	}
 
-	public GameState getCurrent() {
+	public GameState getCurrent() //returns current GameState
+	{
 		return current;
 	}
 
-	public void update(Board b, byte x, byte y) {
-		for (GameState s : current.getChildren()) {
-			if (s.getX() == x && s.getY() == y) {
+	public void update(Board b, byte x, byte y) //Updates the board and the right position
+	{
+		//Checks through all the gamestates and sets
+		//The current GameState as the best move option
+		for (GameState s : current.getChildren()) 
+		{
+			if (s.getX() == x && s.getY() == y) 
+			{
 				current = s;
 				return;
 			}
