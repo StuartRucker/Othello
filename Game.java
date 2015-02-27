@@ -39,7 +39,7 @@ class Game {
 		}*/
 		boolean played = false;
 		CPU.update(b, x, y);
-		CPU.negamin(CPU.getCurrent(), (byte)(-1));
+		CPU.negamaxab(CPU.getCurrent(), (byte)(1),Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		b = CPU.bestMove(CPU.getCurrent());
 		CPU.addLayers(CPU.getCurrent(), 2);
 		return played;
