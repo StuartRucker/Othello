@@ -2,7 +2,7 @@
 * @Board.java
 * @Authors: Stuart Rucker, Oscar Suen, Vinayak Kurup
 *
-* The entire board at any time-- represented using byte array
+* The entire board at any time
 */
 
 class Board {
@@ -12,137 +12,181 @@ class Board {
 	private boolean player; //black true, white false
 	//private int turn; //necessary? int?
 
-	public Board() { //default constructor
+	public Board() //Default constructor
+	{
 		this(8, 8);
 	}
-
-	public Board(int w, int h) {
+	
+	public Board(int w, int h) //other constructor
+	{
 		width = w;
 		height = h;
 		array = new byte[w][h];
 		player = true;
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) {
+		for (int i = 0; i < width; i++) //iterates through array and sets all values to 0 (unfilled)
+		{
+			for (int j = 0; j < height; j++) 
+			{
 				array[i][j] = 0;
 			}
 		}
-		place(4, 3);
+		place(4, 3); 
 		place(3, 3);
 		place(3, 4);
 		place(4, 4);
 	}
 
-	public byte get(int x, int y) {
-		if (x >= 0 && x < width && y >= 0 && y < height) {
+	public byte get(int x, int y) //Get's the value at a specific position on the board
+	{
+		if (x >= 0 && x < width && y >= 0 && y < height) 
+		{
 			return array[x][y];
-		} else {
+		} 
+		else 
+		{
 			return Byte.MAX_VALUE;
 		}
 	}
 
-	public int getWidth() {
+	public int getWidth() //returns width of the board
+	{
 		return width;
 	}
 
-	public int getHeight() {
+	public int getHeight() //returns height of the board
+	{
 		return height;
 	}
 
-	public boolean getPlayer() {
+	public boolean getPlayer() // AI or player
+	{
 		return player;
 	}
 
-	public void setPlayer(boolean p) {
+	public void setPlayer(boolean p) //Sets the player
+	{
 		player = p;
 	}
 
-	public byte getPlayeri() {
+	public byte getPlayeri()
+	{
 		return player ? (byte)1 : (byte)(-1);
 	}
 
-	public void place(int x, int y) { //I could be wrong-- but this doens't work if I understand how it's supposed to
-		if (x == -1 && y == -1) {
-			//unable to place
+	public void place(int x, int y) //in the byte array places a piece
+	{
+		if (x == -1 && y == -1) //unable to place
+		{
 			player = !player;
 			return;
 		}
-		if (array[x][y] == 0) {
-			if (player) {
-				array[x][y] = 1;
-			} else if (!player) {
-				array[x][y] = -1;
+		if (array[x][y] == 0) 
+		{
+			if (player) 
+			{
+				array[x][y] = 1; //black
+			} 
+			else if (!player) 
+			{
+				array[x][y] = -1; //white
 			}
 			player = !player;
-		} else {
+		} 
+		else 
+		{
 			player = !player;
 		}
 	}
 
-	public void revert(int x, int y) {
+	public void revert(int x, int y) //reverts value to 0
+	{
 		array[x][y] = 0;
 		player = !player;
 	}
 
-	public void flip(int x, int y) {
-		array[x][y] = (byte)(-array[x][y]);
+	public void flip(int x, int y) //changes white to black and vice versa
+	{
+		array[x][y] = (byte)(-array[x][y]); 
 	}
 
-	public void set(int x, int y, byte b) {
+	public void set(int x, int y, byte b) //sets the place to either white or black
+	{
 		array[x][y] = b;
 	}
 
-	public Board copy() {
+	public Board copy() //copies the  (including player)
+	{
 		Board s = new Board(width, height);
-		for (int x = 0; x < width; x ++) {
-			for (int y = 0; y < height; y ++) {
+		for (int x = 0; x < width; x ++) //iterates through and copies the value from the cells
+		{
+			for (int y = 0; y < height; y ++) 
+			{
 				s.set(x, y, array[x][y]);
 			}
 		}
-		s.setPlayer(getPlayer());
+		s.setPlayer(getPlayer()); //copies player
 		return s;
 	}
 
-	public String toString() {
+	public String toString() //String of the board
+	{
 		String rtn = "";
-		for (int j = 0; j < height; j++) {
-			for (int i = 0; i < width; i++) {
-				if (array[i][j] == 0) {
+		for (int j = 0; j < height; j++) //iterates through board positions
+		{
+			for (int i = 0; i < width; i++) 
+			{
+				if (array[i][j] == 0) //if empty 
+				{
 					rtn += "-";
-				} else if (array[i][j] == 1) {
+				} 
+				else if (array[i][j] == 1) // if black 
+				{
 					rtn += "X";
-				} else if (array[i][j] == -1) {
+				} 
+				else if (array[i][j] == -1) //if white
+				{
 					rtn += "O";
 				}
 			}
-			rtn += "\n";
+			rtn += "\n"; //after each lines adds a new line
 		}
 		return rtn;
 	}
 
-	public boolean equals(Board b) {
+	public boolean equals(Board b) //compares the two boards if they're equal
+	{
 		return array.equals(b.getArray());
 	}
 
-	public byte[][] getArray() {
+	public byte[][] getArray() //returns the board array
+	{
 		return array;
 	}
 
-	public double win() {
+	public double win() 
+	{
 		boolean b = false;
 		boolean w = false;
-		for (int i = 0; i < width; i++) {
-			for (int j = 0; j < height; j++) {
-				if (array[i][j] == (byte)(1)) {
+		for (int i = 0; i < width; i++) 
+		{
+			for (int j = 0; j < height; j++) 
+			{
+				if (array[i][j] == (byte)(1)) 
+				{
 					b = true;
-				} else if (array[i][j] == (byte)(-1)) {
+				} 
+				else if (array[i][j] == (byte)(-1)) 
+				{
 					w = true;
 				}
-				if (b && w) {
+				if (b && w) 
+				{
 					return 0;
 				}
 			}
 		}
-		if (b) {
+		if (b) 
+		{
 			return Double.POSITIVE_INFINITY;
 		}
 		return Double.NEGATIVE_INFINITY;
