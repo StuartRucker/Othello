@@ -18,11 +18,12 @@ public class Runner {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		WIDTH = (int) dim.getHeight() - 30;
-		HEIGHT = (int) dim.getHeight() - 30;
+		WIDTH = (int) dim.getHeight() - 100;
+		HEIGHT = (int) dim.getHeight() - 100;
 
-		frame.setSize(WIDTH, HEIGHT);
+		frame.setSize(WIDTH, HEIGHT + 40);
 		frame.setResizable(false);
+		frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 
 		startPanel start = new startPanel(WIDTH,HEIGHT);
 		
