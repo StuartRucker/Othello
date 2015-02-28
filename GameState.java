@@ -61,7 +61,7 @@ public class GameState {
 		sum += 3 * b.get(b.getWidth() - 1, 0);
 		sum += 3 * b.get(0, b.getHeight() - 1);
 		sum += 3 * b.get(b.getWidth() - 1, b.getHeight() - 1);
-		sum += Math.random()/2 - 0.5;
+		sum += Math.random() / 2 - 0.5;
 		sum += b.win();
 		return sum;
 	}

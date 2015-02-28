@@ -1,7 +1,7 @@
 //startPanel.java
 /*
 *
-* @Author: Vinayak Kurup
+* @Author: Stuart Rucker
 * @Version: February 26, 2015
 *
 * Start Screen that decides what happens (what mode of game) !!!

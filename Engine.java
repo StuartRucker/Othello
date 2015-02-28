@@ -1,3 +1,11 @@
+/*
+*
+* @Authors: Vinayak Kurup, Oscar Suen, Stuart Rucker
+* @Version: February 26, 2015
+*
+* Static class that performs captures and evaluates play possibility
+*
+*/
 class Engine {
 
 	public Engine() {

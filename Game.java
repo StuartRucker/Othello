@@ -1,3 +1,11 @@
+/*
+*
+* @Authors: Vinayak Kurup, Oscar Suen, Stuart Rucker
+* @Version: February 26, 2015
+*
+* Game wrapper that performs gameplay
+*
+*/
 class Game {
 	private Board b;
 	private AI CPU;
@@ -32,14 +40,9 @@ class Game {
 	}
 
 	public boolean CPUPLay(byte x, byte y) {
-		/*try {
-		    Thread.sleep(1000);
-		} catch (InterruptedException e1) {
-		    e1.printStackTrace();
-		}*/
 		boolean played = false;
 		CPU.update(b, x, y);
-		CPU.negamaxab(CPU.getCurrent(), (byte)(1),Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+		CPU.negamaxab(CPU.getCurrent(), (byte)(1), Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 		b = CPU.bestMove(CPU.getCurrent());
 		CPU.addLayers(CPU.getCurrent(), 2);
 		return played;

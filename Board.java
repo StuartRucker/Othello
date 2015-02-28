@@ -10,9 +10,9 @@ class Board {
 	private int height;
 	private byte[][] array; //black = 1, white = -1, unfilled = 0
 	private boolean player; //black true, white false
-	//private int turn; //necessary? int?
 
-	public Board() { //Default constructor
+	public Board() {
+		//Default constructor
 		this(8, 8);
 	}
 
@@ -22,7 +22,8 @@ class Board {
 		height = h;
 		array = new byte[w][h];
 		player = true;
-		for (int i = 0; i < width; i++) { //iterates through array and sets all values to 0 (unfilled)
+		for (int i = 0; i < width; i++) {
+			//iterates through array and sets all values to 0 (unfilled)
 			for (int j = 0; j < height; j++) {
 				array[i][j] = 0;
 			}
@@ -85,20 +86,24 @@ class Board {
 		}
 	}
 
-	public void revert(int x, int y) { //reverts value to 0
+	public void revert(int x, int y) {
+		//reverts value to 0
 		array[x][y] = 0;
 		player = !player;
 	}
 
-	public void flip(int x, int y) { //changes white to black and vice versa
+	public void flip(int x, int y) {
+		//changes white to black and vice versa
 		array[x][y] = (byte)(-array[x][y]);
 	}
 
-	public void set(int x, int y, byte b) { //sets the place to either white or black
+	public void set(int x, int y, byte b) {
+		//sets the place to either white or black
 		array[x][y] = b;
 	}
 
-	public Board copy() { //copies the  (including player)
+	public Board copy() {
+		//copies the  (including player)
 		Board s = new Board(width, height);
 		for (int x = 0; x < width; x ++) {
 			//iterates through and copies the value from the cells
@@ -110,7 +115,8 @@ class Board {
 		return s;
 	}
 
-	public String toString() { //String of the board
+	public String toString() {
+		//String of the board
 		String rtn = "";
 		for (int j = 0; j < height; j++) {
 			//iterates through board positions
@@ -128,11 +134,13 @@ class Board {
 		return rtn;
 	}
 
-	public boolean equals(Board b) { //compares the two boards if they're equal
+	public boolean equals(Board b) {
+		//compares the two boards if they're equal
 		return array.equals(b.getArray());
 	}
 
-	public byte[][] getArray() { //returns the board array
+	public byte[][] getArray() {
+		//returns the board array
 		return array;
 	}
 

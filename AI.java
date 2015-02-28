@@ -15,7 +15,7 @@ public class AI {
 		// Current board and depth to look forward
 		current = new GameState(init, (byte)1, (byte)(-1), (byte)(-1));
 		generateDepth(0, depth, current);
-		negamaxab(current, (byte)(1),Double.NEGATIVE_INFINITY,Double.POSITIVE_INFINITY);
+		negamaxab(current, (byte)(1), Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
 	}
 
 	public void generateDepth(int depth, int target, GameState root) {
@@ -30,11 +30,11 @@ public class AI {
 
 	public Board bestMove(GameState root) {
 		//Figures out the best move to play
-		double m = Double.NEGATIVE_INFINITY; //nothing can go greater than m
+		double m = Double.NEGATIVE_INFINITY; //init m
 		Board b = null;
 		for (GameState c : root.getChildren()) {
 			//Goes through all the children and ends with the GameState
-			//that is the least value (best move)
+			//that is the greatest value (best move)
 			if (m < c.getValue()) { //b/c m is greatest val, will be true first time
 				m = c.getValue();
 				b = c.getBoard();
@@ -75,45 +75,45 @@ public class AI {
 
 	public double negamaxab(GameState root, byte player, double alpha, double beta) {
 		//v4 negamax with pruning
-	    if (root.isTerminal()) {
-	        return player * root.setValue(root.getScore());
-	    }
-	    double bestValue = Double.NEGATIVE_INFINITY;
-	    for (GameState s : root.getChildren()) {
-	        double val = -negamaxab(s,(byte)(-player), -beta, -alpha);
-	        bestValue = Math.max(bestValue, val);
-	        alpha = Math.max(alpha,val);
-	        if (alpha >= beta) {
-	            break;
-	        }
-	    }
-	    return root.setValue(bestValue);
-	}
-
-	/*public double negamax(GameState root, byte player) {
-		//V3 negamax w/o a-b pruning
 		if (root.isTerminal()) {
 			return player * root.setValue(root.getScore());
 		}
 		double bestValue = Double.NEGATIVE_INFINITY;
 		for (GameState s : root.getChildren()) {
-			double val = -negamax(s, (byte)(-player));
+			double val = -negamaxab(s, (byte)(-player), -beta, -alpha);
 			bestValue = Math.max(bestValue, val);
+			alpha = Math.max(alpha, val);
+			if (alpha >= beta) {
+				break;
+			}
 		}
 		return root.setValue(bestValue);
+	}
+
+	/*public double negamax(GameState root, byte player) {
+	    //V3 negamax w/o a-b pruning
+	    if (root.isTerminal()) {
+	        return player * root.setValue(root.getScore());
+	    }
+	    double bestValue = Double.NEGATIVE_INFINITY;
+	    for (GameState s : root.getChildren()) {
+	        double val = -negamax(s, (byte)(-player));
+	        bestValue = Math.max(bestValue, val);
+	    }
+	    return root.setValue(bestValue);
 	}*/
 
 	/*public double negamin(GameState root, byte player) {
-		//V3 negamin w/o a-b pruning
-		if (root.isTerminal()) {
-			return player * root.setValue(root.getScore());
-		}
-		double bestValue = Double.MAX_VALUE;
-		for (GameState s : root.getChildren()) {
-			double val = -negamin(s, (byte)(-player));
-			bestValue = Math.min(bestValue, val);
-		}
-		return root.setValue(bestValue);
+	    //V3 negamin w/o a-b pruning
+	    if (root.isTerminal()) {
+	        return player * root.setValue(root.getScore());
+	    }
+	    double bestValue = Double.MAX_VALUE;
+	    for (GameState s : root.getChildren()) {
+	        double val = -negamin(s, (byte)(-player));
+	        bestValue = Math.min(bestValue, val);
+	    }
+	    return root.setValue(bestValue);
 	}*/
 
 	/*public double computeValue(GameState root) {
