@@ -131,17 +131,14 @@ public class Display extends JPanel implements MouseListener
         int b = g.getScore((byte)1);
         int w = g.getScore((byte)(-1));
         String whoWins = "";
-        //these don't work for some reason
+
         if (b > w)whoWins = "you win!\n";
         if (b < w)whoWins = "you lose!\n";
         if (w == b) whoWins = "tie\n";
         whoWins += "you have " + b + " tiles, CPU has " + w;
         JOptionPane.showMessageDialog(new JFrame(), whoWins);
-        //g.endGame();
-        g = new Game(8,8,depth);
-        paintComponent(getGraphics());
-        movesplayed = 0;
-        Runner.changePrompt("first Move");
+        Runner.startStarterScreen();
+        Runner.changePrompt("start Screen");
     }
 
     @Override
